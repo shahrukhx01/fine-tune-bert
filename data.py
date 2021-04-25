@@ -19,7 +19,7 @@ class SpamData:
         Load dataset and bert tokenizer
         """
         ## load data into memory
-        self.data_df = pd.read_csv(data_path)
+        self.data_df = pd.read_csv(data_path).head(10)
         ## set max sequence length for model
         self.max_sequence_length = max_sequence_length
         ## get bert tokenizer

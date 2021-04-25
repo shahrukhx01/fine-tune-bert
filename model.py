@@ -1,5 +1,5 @@
 from transformers import BertModel, BertConfig
-
+from transformers import BertForSequenceClassification
 
 
 class BERTClassifier:
@@ -13,5 +13,7 @@ class BERTClassifier:
         # initializing a model from the bert-base-uncased style configuration
         model = BertModel(self.configuration)
 
-        self.model = BertForSequenceClassification.from_pretrained("bert-base-uncased", num_labels=2)
-        self.model.cuda()
+        model = BertForSequenceClassification.from_pretrained("bert-base-uncased", num_labels=2)
+        model.cuda()
+
+        return model
