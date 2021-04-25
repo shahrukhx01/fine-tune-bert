@@ -1,4 +1,4 @@
-# fine-tune-bert
+# Fine Tune Bert for Text Classification
 
 Fine tuning Google's Bert using transformers package and Pytorch on the following dataset:
 SMS Spam Collection v. 1
