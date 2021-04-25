@@ -1,5 +1,9 @@
 # Fine Tune Bert for Text Classification
 
+| Train Loss    | Validation Acc.| Test Acc.|
+| ------------- |:-------------: | -----:   |
+| 0.0206      | 0.994  | 0.992    |
+
 Fine tuning Google's Bert using transformers package and Pytorch on the following dataset:
 SMS Spam Collection v. 1
 The SMS Spam Collection v.1 is a public set of SMS labeled messages that have been collected for mobile phone spam research. It has one collection composed by 5,574 English, real and non-enconded messages, tagged according being legitimate (ham) or spam.
