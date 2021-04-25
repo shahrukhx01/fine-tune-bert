@@ -30,7 +30,7 @@ class SpamData:
         Separate out labels and texts
         """
         texts = self.data_df.Message.values
-        labels = self.data_df.Category.values == 'ham'
+        labels = self.data_df.Category.values == 'spam'
         print('Performing the train_val_test split')
         ## perform train test split
         train_texts, test_texts, train_labels, test_labels = train_test_split(texts, labels, 
