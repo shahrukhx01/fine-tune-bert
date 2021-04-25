@@ -1,4 +1,4 @@
-# Fine Tune Bert for Text Classification
+# Fine Tune Bert for Text SPAM Classification
 
 | Train Loss    | Validation Acc.| Test Acc.|
 | ------------- |:-------------: | -----:   |
