@@ -14,10 +14,12 @@ logger = logging.getLogger()
 
 
 class SpamData:
-    def __init__(self, data_path, max_sequence_length=512):
+    def __init__(self, data_path, label_map, max_sequence_length=512):
         """
         Load dataset and bert tokenizer
         """
+        ## set the label map for encoding to ints
+        self.label_map = label_map
         ## load data into memory
         self.data_df = pd.read_csv(data_path).head(10)
         ## set max sequence length for model
@@ -29,8 +31,9 @@ class SpamData:
         """
         Separate out labels and texts
         """
+        self.data_df.Category = self.data_df.Category.map(self.label_map)
         texts = self.data_df.Message.values
-        labels = self.data_df.Category.values == 'spam'
+        labels = self.data_df.Category.values
         print('Performing the train_val_test split')
         ## perform train test split
         train_texts, test_texts, train_labels, test_labels = train_test_split(texts, labels, 

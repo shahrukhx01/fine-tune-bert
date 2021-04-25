@@ -1,6 +1,9 @@
 from utils import flat_accuracy
+from tqdm import tqdm, trange
+import torch
 
 def train_model(model, optimizer, scheduler, train_dataloader, validation_dataloader, epochs):
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     t = [] 
 
     # Store our loss and accuracy for plotting
@@ -53,14 +56,14 @@ def train_model(model, optimizer, scheduler, train_dataloader, validation_datalo
 
         # Evaluate data for one epoch
         for batch in validation_dataloader:
-            # Add batch to GPU
+            # add batch to GPU
             batch = tuple(t.to(device) for t in batch)
-            # Unpack the inputs from our dataloader
+            # unpack the inputs from our dataloader
             b_input_ids, b_input_mask, b_labels = batch
-            # Telling the model not to compute or store gradients, saving memory and speeding up validation
+            # avoiding model's computation and storage of gradients -> saving memory and speeding up validation
             with torch.no_grad():
-            # Forward pass, calculate logit predictions
-            logits = model(b_input_ids, token_type_ids=None, attention_mask=b_input_mask)
+                # forward pass, calculate logit predictions
+                logits = model(b_input_ids, token_type_ids=None, attention_mask=b_input_mask)
             
             # Move logits and labels to CPU
             logits = logits['logits'].detach().cpu().numpy()

@@ -4,9 +4,10 @@ from data import SpamData
 
 class SpamDataLoader:
 
-    def __init__(self, data_file, batch_size=8):
-        self.spam_data = SpamData(data_file)
+    def __init__(self, data_file, label_map, batch_size=8):
+        self.spam_data = SpamData(data_file, label_map)
         self.batch_size = batch_size
+        self.create_loaders()
     
     def create_loaders(self):
         """

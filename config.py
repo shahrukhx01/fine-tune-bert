@@ -3,7 +3,7 @@
 from transformers import AdamW, get_linear_schedule_with_warmup
 
 class BertOptimConfig:
-    def __init__(self, epochs=2):
+    def __init__(self, model, train_dataloader, epochs=2):
         # Don't apply weight decay to any parameters whose names include these tokens.
         # (Here, the BERT doesn't have `gamma` or `beta` parameters, only `bias` terms)
         param_optimizer = list(model.named_parameters())
