@@ -2,8 +2,7 @@ from utils import flat_accuracy
 from tqdm import tqdm, trange
 import torch
 
-def train_model(model, optimizer, scheduler, train_dataloader, validation_dataloader, epochs):
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+def train_model(model, optimizer, scheduler, train_dataloader, validation_dataloader, epochs, device):
     t = [] 
 
     # Store our loss and accuracy for plotting
@@ -75,3 +74,5 @@ def train_model(model, optimizer, scheduler, train_dataloader, validation_datalo
             nb_eval_steps += 1
         model.save_pretrained("/content/model")
         print("Validation Accuracy: {}".format(eval_accuracy/nb_eval_steps))
+    
+    return model
