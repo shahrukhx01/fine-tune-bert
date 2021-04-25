@@ -16,12 +16,12 @@ if __name__ == '__main__':
     optim_config = BertOptimConfig(model=model, train_dataloader=data_loaders.train_dataloader, epochs=epochs)
     
     ## execute the training routine
-    """model = train_model(model=model, 
+    model = train_model(model=model, 
                 optimizer=optim_config.optimizer, 
                 scheduler=optim_config.scheduler, 
                 train_dataloader=data_loaders.train_dataloader, 
                 validation_dataloader=data_loaders.validation_dataloader, 
-                epochs=epochs, device=device)"""
+                epochs=epochs, device=device)
 
     ## test model performance on unseen test set
     eval_model(model=model, test_dataloader=data_loaders.test_dataloader, device=device)
