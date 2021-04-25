@@ -1,3 +1,4 @@
+## dataset source: https://www.kaggle.com/team-ai/spam-text-message-classification
 import pandas as pd
 import torch
 from keras.preprocessing.sequence import pad_sequences
