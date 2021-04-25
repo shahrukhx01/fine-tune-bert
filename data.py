@@ -21,7 +21,7 @@ class SpamData:
         ## set the label map for encoding to ints
         self.label_map = label_map
         ## load data into memory
-        self.data_df = pd.read_csv(data_path).head(10)
+        self.data_df = pd.read_csv(data_path)
         ## set max sequence length for model
         self.max_sequence_length = max_sequence_length
         ## get bert tokenizer
