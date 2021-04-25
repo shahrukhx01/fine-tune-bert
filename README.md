@@ -33,23 +33,5 @@ spam  Sunshine Quiz! Win a super Sony DVD recorder if you canname the capital of
 spam  URGENT! Your Mobile No 07808726822 was awarded a L2,000 Bonus Caller Prize on 02/09/03! This is our 2nd attempt to contact YOU! Call 0871-872-9758 BOX95QU
 
 
-We would appreciate:
-
-If you find this collection useful, make a reference to the paper below and the web page: http://www.dt.fee.unicamp.br/~tiago/smsspamcollection/
-Send us a message either to talmeida < AT > ufscar.br  or jmgomezh <AT> yahoo.es in case you make use of the corpus.
-Publication and More Information
-We offer a comprehensive study of this corpus in the following papers. These works present a number of interesting statistics, studies and baseline results for many traditional machine learning methods.
-
-Almeida, T.A., Gómez Hidalgo, J.M., Yamakami, A. Contributions to the Study of SMS Spam Filtering: New Collection and Results.  Proceedings of the 2011 ACM Symposium on Document Engineering (DOCENG'11), Mountain View, CA, USA, 2011. [preprint]
-
-Gómez Hidalgo, J.M., Almeida, T.A., Yamakami, A. On the Validity of a New SMS Spam Collection.  Proceedings of the 11th IEEE International Conference on Machine Learning and Applications (ICMLA'12), Boca Raton, FL, USA, 2012. [preprint]
-
-Almeida, T.A., Gómez Hidalgo, J.M., Silva, T.P.  Towards SMS Spam Filtering: Results under a New Dataset.   International Journal of Information Security Science (IJISS), 2(1), 1-18, 2013. [Invited paper - full version]
-
-About
-The SMS Spam Collection has been created by Tiago A. Almeida and José María Gómez Hidalgo.
-
-We would like to thank Min-Yen Kan and his team for making the NUS SMS Corpus available.
-
-
-© Tiago A. Almeida and José María Gómez Hidalgo, 2011.
+References:
+http://www.dt.fee.unicamp.br/~tiago/smsspamcollection/
