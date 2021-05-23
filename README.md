@@ -4,6 +4,14 @@
 | ------------- |:-------------: | -----:   |
 | 0.000806      | 0.99  | 0.992    |
 
+# USAGE
+```python
+from transformers import AutoTokenizer, AutoModelForSequenceClassification
+  
+tokenizer = AutoTokenizer.from_pretrained("shahrukhx01/bert-mini-finetune-question-detection")
+
+model = AutoModelForSequenceClassification.from_pretrained("shahrukhx01/bert-mini-finetune-question-detection")
+```
 Trained to add feature of Question vs Statement classification in (Haystack)[https://github.com/deepset-ai/haystack/issues/611]
 
 Problem Statement:
