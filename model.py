@@ -13,7 +13,7 @@ class BERTClassifier:
         # initializing a model from the bert-base-uncased style configuration
         model = BertModel(self.configuration)
 
-        model = BertForSequenceClassification.from_pretrained("bert-base-uncased", num_labels=2)
+        model = BertForSequenceClassification.from_pretrained("prajjwal1/bert-mini", num_labels=2)
         model.cuda()
 
         return model

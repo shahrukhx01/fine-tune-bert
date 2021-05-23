@@ -3,15 +3,19 @@ from model import BERTClassifier
 from config import BertOptimConfig
 from train import train_model
 from eval import eval_model
-from data_loader import SpamDataLoader
+from data_loader import QuestionsDataLoader
 
 
 if __name__ == '__main__':
-    label_map = {'spam': 1, 'ham': 0}
     epochs = 2
     num_labels = 2
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    data_loaders = SpamDataLoader('spam.csv', label_map =label_map, batch_size=8)
+    data_path = {
+        'train': '/kaggle/input/quora-question-keyword-pairs/train.tsv',
+        'dev': '/kaggle/input/quora-question-keyword-pairs/dev.tsv',
+        'test': '/kaggle/input/quora-question-keyword-pairs/test.tsv'
+    }
+    data_loaders = QuestionsDataLoader(data_path, batch_size=8)
     model = BERTClassifier(num_labels=num_labels).get_model()
     optim_config = BertOptimConfig(model=model, train_dataloader=data_loaders.train_dataloader, epochs=epochs)
     

@@ -1,11 +1,11 @@
 from torch.utils.data import TensorDataset, DataLoader, RandomSampler, SequentialSampler
-from data import SpamData
+from data import QuestionsData
 
 
-class SpamDataLoader:
+class QuestionsDataLoader:
 
-    def __init__(self, data_file, label_map, batch_size=8):
-        self.spam_data = SpamData(data_file, label_map)
+    def __init__(self, data_file, batch_size=8):
+        self.spam_data = QuestionsData(data_file)
         self.batch_size = batch_size
         self.create_loaders()
     

@@ -4,6 +4,7 @@ import torch
 from keras.preprocessing.sequence import pad_sequences
 from sklearn.model_selection import train_test_split
 from transformers import BertTokenizer, BertConfig
+from tqdm import tqdm
 import logging
 
 ## setting the threshold of logger to INFO
@@ -14,37 +15,31 @@ logger = logging.getLogger()
   
 
 
-class SpamData:
-    def __init__(self, data_path, label_map, max_sequence_length=512):
+class QuestionsData:
+    def __init__(self, data_path, max_sequence_length=512):
         """
         Load dataset and bert tokenizer
         """
-        ## set the label map for encoding to ints
-        self.label_map = label_map
         ## load data into memory
-        self.data_df = pd.read_csv(data_path)
+        self.train_df = pd.read_csv(data_path['train'], sep='\t').head()
+        self.dev_df = pd.read_csv(data_path['dev'], sep='\t').head()
+        self.test_df = pd.read_csv(data_path['test'], sep='\t').head()
         ## set max sequence length for model
         self.max_sequence_length = max_sequence_length
         ## get bert tokenizer
-        self.tokenizer = BertTokenizer.from_pretrained('bert-base-uncased', do_lower_case=True)
+        self.tokenizer = BertTokenizer.from_pretrained('prajjwal1/bert-mini', do_lower_case=True)
     
     def train_val_test_split(self):
         """
         Separate out labels and texts
         """
-        self.data_df.Category = self.data_df.Category.map(self.label_map)
-        texts = self.data_df.Message.values
-        labels = self.data_df.Category.values
-        print('Performing the train_val_test split')
-        ## perform train test split
-        train_texts, test_texts, train_labels, test_labels = train_test_split(texts, labels, 
-                                                            random_state=2018, test_size=0.2)
-        ## perform train validation split
-        train_texts, val_texts, train_labels, val_labels = train_test_split(train_texts, 
-                                                                            train_labels, 
-                                                                            random_state=2018, 
-                                                                            test_size=0.2)
-
+        train_texts = self.train_df['query'].values
+        train_labels = self.train_df.target.values
+        val_texts = self.dev_df['query'].values
+        val_labels = self.dev_df.target.values
+        test_texts = self.test_df['query'].values
+        test_labels = self.test_df.target.values
+        
         return train_texts, val_texts, test_texts, train_labels, val_labels, test_labels
     
     def preprocess(self, texts):
@@ -53,7 +48,7 @@ class SpamData:
         """
         ## separate labels and texts before preprocessing
         # Adding CLS and SEP tokens at the beginning and end of each sequence for BERT
-        texts_processed = ["[CLS] " + sequence + " [SEP]" for sequence in texts]
+        texts_processed = ["[CLS] " + str(sequence) + " [SEP]" for sequence in texts]
         return texts_processed
         
     def tokenize(self, texts):
@@ -62,12 +57,14 @@ class SpamData:
         by padding or truncating to a fixed length
         """
         ## tokenize sequence
-        tokenized_texts = [self.tokenizer.tokenize(text) for text in texts]
+        tokenized_texts = [self.tokenizer.tokenize(text) for text in tqdm(texts)]
         
         ## convert tokens to ids
-        text_ids = [self.tokenizer.convert_tokens_to_ids(x) for x in tokenized_texts]
+        print('convert tokens to ids')
+        text_ids = [self.tokenizer.convert_tokens_to_ids(x) for x in tqdm(tokenized_texts)]
 
         ## pad our text tokens for each sequence
+        print('pad our text tokens for each sequence')
         text_ids_post_processed = pad_sequences(text_ids, 
                                        maxlen=self.max_sequence_length, 
                                        dtype="long", 
@@ -81,7 +78,7 @@ class SpamData:
         """
         attention_masks = []
         # create a mask of 1s for each token followed by 0s for padding
-        for seq in text_ids:
+        for seq in tqdm(text_ids):
             seq_mask = [float(i>0) for i in seq]
             attention_masks.append(seq_mask)
         return attention_masks
@@ -99,16 +96,22 @@ class SpamData:
         val_texts_processed = self.preprocess(val_texts)
         test_texts_processed = self.preprocess(test_texts)
 
-        print('tokenizing texts')
+        
         ## preprocess train, val, test texts
+        print('tokenizing train texts')
         train_ids = self.tokenize(train_texts_processed)
+        print('tokenizing val texts')
         val_ids = self.tokenize(val_texts_processed)
+        print('tokenizing test texts')
         test_ids = self.tokenize(test_texts_processed)
 
-        print('creating attention masks for texts')
+        
         ## create masks for train, val, test texts
+        print('creating train attention masks for texts')
         train_masks = self.create_attention_mask(train_ids)
+        print('creating val attention masks for texts')
         val_masks = self.create_attention_mask(val_ids)
+        print('creating test attention masks for texts')
         test_masks = self.create_attention_mask(test_ids)
         return (
                 train_ids,
@@ -146,4 +149,9 @@ class SpamData:
         self.test_masks = torch.tensor(test_masks)
 
 if __name__ == '__main__':
-    SpamData('spam.csv').text_to_tensors()
+    data_path = {
+        'train': '/kaggle/input/quora-question-keyword-pairs/train.tsv',
+        'dev': '/kaggle/input/quora-question-keyword-pairs/dev.tsv',
+        'test': '/kaggle/input/quora-question-keyword-pairs/test.tsv'
+    }
+    QuestionsData(data_path).text_to_tensors()
