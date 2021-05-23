@@ -95,7 +95,10 @@ class QuestionsData:
         train_texts_processed = self.preprocess(train_texts)
         val_texts_processed = self.preprocess(val_texts)
         test_texts_processed = self.preprocess(test_texts)
-
+        
+        del train_texts
+        del val_texts
+        del test_texts
         
         ## preprocess train, val, test texts
         print('tokenizing train texts')
@@ -105,6 +108,13 @@ class QuestionsData:
         print('tokenizing test texts')
         test_ids = self.tokenize(test_texts_processed)
 
+        del train_texts_processed 
+        del val_texts_processed
+        del test_texts_processed 
+        
+        del self.train_df
+        del self.dev_df 
+        del self.test_df
         
         ## create masks for train, val, test texts
         print('creating train attention masks for texts')
