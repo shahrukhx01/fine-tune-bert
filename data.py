@@ -21,7 +21,7 @@ class QuestionsData:
         Load dataset and bert tokenizer
         """
         ## load data into memory
-        self.train_df = pd.read_csv(data_path['train'], sep='\t')
+        self.train_df = pd.read_csv(data_path['train'], sep='\t')[:300000]
         self.dev_df = pd.read_csv(data_path['dev'], sep='\t')
         self.test_df = pd.read_csv(data_path['test'], sep='\t').head()
         ## set max sequence length for model
