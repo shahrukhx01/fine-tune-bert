@@ -6,7 +6,7 @@
 
 Trained to add feature of Question vs Statement classification in (Haystack)[https://github.com/deepset-ai/haystack/issues/611]
 
-With the new flexible Pipelines introduced in #596, we can build way more flexlible and complex search routes.
+Problem Statement:
 One common challenge that we saw in deployments: We need to distinguish between real questions and keyword queries that come in. We only want to route questions to the Reader branch in order to maximize the accuracy of results and minimize computation efforts/costs.
 
 Describe the solution you'd like
