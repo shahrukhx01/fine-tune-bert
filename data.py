@@ -21,9 +21,9 @@ class QuestionsData:
         Load dataset and bert tokenizer
         """
         ## load data into memory
-        self.train_df = pd.read_csv(data_path['train'], sep='\t')[:100000]
-        self.dev_df = pd.read_csv(data_path['dev'], sep='\t')
-        self.test_df = pd.read_csv(data_path['test'], sep='\t').head()
+        self.train_df = pd.read_csv(data_path['train'])
+        self.dev_df = pd.read_csv(data_path['dev'])
+        self.test_df = pd.read_csv(data_path['test'])
         ## set max sequence length for model
         self.max_sequence_length = max_sequence_length
         ## get bert tokenizer
@@ -33,11 +33,11 @@ class QuestionsData:
         """
         Separate out labels and texts
         """
-        train_texts = self.train_df['query'].values
+        train_texts = self.train_df['doc'].values
         train_labels = self.train_df.target.values
-        val_texts = self.dev_df['query'].values
+        val_texts = self.dev_df['doc'].values
         val_labels = self.dev_df.target.values
-        test_texts = self.test_df['query'].values
+        test_texts = self.test_df['doc'].values
         test_labels = self.test_df.target.values
         
         return train_texts, val_texts, test_texts, train_labels, val_labels, test_labels
@@ -160,8 +160,8 @@ class QuestionsData:
 
 if __name__ == '__main__':
     data_path = {
-        'train': '/kaggle/input/quora-question-keyword-pairs/train.tsv',
-        'dev': '/kaggle/input/quora-question-keyword-pairs/dev.tsv',
-        'test': '/kaggle/input/quora-question-keyword-pairs/test.tsv'
+        'train': '/kaggle/input/questions-vs-statementsclassificationdataset/train.csv',
+        'dev': '/kaggle/input/questions-vs-statementsclassificationdataset/val.csv',
+        'test': '/kaggle/input/questions-vs-statementsclassificationdataset/test.csv'
     }
     QuestionsData(data_path).text_to_tensors()
