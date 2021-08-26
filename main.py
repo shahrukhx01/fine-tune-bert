@@ -11,9 +11,9 @@ if __name__ == '__main__':
     num_labels = 2
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     data_path = {
-        'train': '/kaggle/input/quora-question-keyword-pairs/train.tsv',
-        'dev': '/kaggle/input/quora-question-keyword-pairs/dev.tsv',
-        'test': '/kaggle/input/quora-question-keyword-pairs/test.tsv'
+        'train': 'train_buy_sell_intent_dataset.csv',
+        'dev': 'val_buy_sell_intent_dataset.csv',
+        'test': 'test_buy_sell_intent_dataset.csv'
     }
     data_loaders = QuestionsDataLoader(data_path, batch_size=8)
     model = BERTClassifier(num_labels=num_labels).get_model()
