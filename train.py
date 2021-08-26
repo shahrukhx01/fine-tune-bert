@@ -81,7 +81,7 @@ def train_model(
 
             eval_accuracy += tmp_eval_accuracy
             nb_eval_steps += 1
-        model.save_pretrained("/content/model")
+        model.save_pretrained("./model")
         print("Validation Accuracy: {}".format(eval_accuracy / nb_eval_steps))
 
     return model
