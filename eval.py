@@ -1,8 +1,9 @@
 import torch
 from utils import flat_accuracy
 
+
 def eval_model(model, test_dataloader, device):
-    ## tracking variables 
+    ## tracking variables
     eval_loss, eval_accuracy = 0, 0
     nb_eval_steps, nb_eval_examples = 0, 0
 
@@ -15,14 +16,16 @@ def eval_model(model, test_dataloader, device):
         ## avoiding model's computation and storage of gradients -> saving memory and speeding up validation
         with torch.no_grad():
             # forward pass, calculate logit predictions
-            logits = model(b_input_ids, token_type_ids=None, attention_mask=b_input_mask)
-        
+            logits = model(
+                b_input_ids, token_type_ids=None, attention_mask=b_input_mask
+            )
+
         ## move logits and labels to CPU
-        logits = logits['logits'].detach().cpu().numpy()
-        label_ids = b_labels.to('cpu').numpy()
+        logits = logits[0].detach().cpu().numpy()
+        label_ids = b_labels.to("cpu").numpy()
 
         tmp_eval_accuracy = flat_accuracy(logits, label_ids)
-        
+
         eval_accuracy += tmp_eval_accuracy
         nb_eval_steps += 1
-    print("Test Accuracy: {}".format(eval_accuracy/nb_eval_steps))
+    print("Test Accuracy: {}".format(eval_accuracy / nb_eval_steps))
