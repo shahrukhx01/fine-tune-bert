@@ -1,5 +1,6 @@
 from transformers import BertModel, BertConfig
 from transformers import BertForSequenceClassification
+import torch
 
 
 class BERTClassifier:
@@ -13,7 +14,10 @@ class BERTClassifier:
         # initializing a model from the bert-base-uncased style configuration
         model = BertModel(self.configuration)
 
-        model = BertForSequenceClassification.from_pretrained("prajjwal1/bert-mini", num_labels=2)
-        model.cuda()
+        model = BertForSequenceClassification.from_pretrained(
+            "prajjwal1/bert-mini", num_labels=2
+        )
+        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        model.to(device)
 
         return model
