@@ -160,8 +160,8 @@ class QuestionsData:
 
 if __name__ == '__main__':
     data_path = {
-        'train': '/kaggle/input/questions-vs-statementsclassificationdataset/train.csv',
-        'dev': '/kaggle/input/questions-vs-statementsclassificationdataset/val.csv',
-        'test': '/kaggle/input/questions-vs-statementsclassificationdataset/test.csv'
+        'train': 'train_buy_sell_intent_dataset.csv',
+        'dev': 'val_buy_sell_intent_dataset.csv',
+        'test': 'test_buy_sell_intent_dataset.csv'
     }
     QuestionsData(data_path).text_to_tensors()
