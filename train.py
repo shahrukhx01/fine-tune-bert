@@ -36,7 +36,7 @@ def train_model(
                 attention_mask=b_input_mask,
                 labels=b_labels,
             )
-            loss = outputs.loss
+            loss = outputs[0]
             train_loss_set.append(loss.item())
             ## backward pass
             loss.backward()
@@ -74,7 +74,7 @@ def train_model(
                 )
 
             # Move logits and labels to CPU
-            logits = logits.logits.detach().cpu().numpy()
+            logits = logits[1].detach().cpu().numpy()
             label_ids = b_labels.to("cpu").numpy()
 
             tmp_eval_accuracy = flat_accuracy(logits, label_ids)
