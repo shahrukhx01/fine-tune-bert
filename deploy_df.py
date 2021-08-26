@@ -1,8 +1,8 @@
-from transformers import BertForSequenceClassification, BertTokenizer
+from transformers import AutoTokenizer, AutoModelForSequenceClassification
 
 
-model = BertForSequenceClassification.from_pretrained("./model")
+model = AutoModelForSequenceClassification.from_pretrained("./model")
 model.push_to_hub("buy-sell-intent-classifier-bert-mini")
 
-tokenizer = BertTokenizer.from_pretrained("./model")
+tokenizer = AutoTokenizer.from_pretrained("./model")
 tokenizer.push_to_hub("buy-sell-intent-classifier-bert-mini")
